@@ -17,7 +17,6 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Result;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceLikelihood;
@@ -67,25 +66,36 @@ public class PlaceActivity  extends Activity {
                     @Override
                     public void onConnected(Bundle bundle) {
                         PendingResult  pendingResult = Places.PlaceDetectionApi.getCurrentPlace(mGoogleApiClient, null);
-                        pendingResult.setResultCallback(new ResultCallback<PlaceLikelihoodbuffer>() {
-
+                        pendingResult.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>() {
                             @Override
                             public void onResult(PlaceLikelihoodBuffer placeLikelihoods) {
                                 ArrayList<String> places = new ArrayList<>();
                                 for (PlaceLikelihood placeLikelihood : placeLikelihoods)
-                                    places.add(String.format("'%s' 可能性: %g", placeLikelihood.getPlace().getName(), placeLikelihood.getLikelihood()));
+                                    places.add(String.format("'%s' \n'%s'\n" +
+                                                    "'%s'\n" +
+                                                    "'%s'可能性: %g", placeLikelihood.getPlace().getName(),
+                                            placeLikelihood.getPlace().getPhoneNumber(),
+                                            placeLikelihood.getPlace().getAddress(),
+                                            placeLikelihood.getPlace().getLatLng(),
+                                            placeLikelihood.getLikelihood()));
                                 ArrayAdapter arrayAdapter = new ArrayAdapter<>(PlaceActivity.this, android.R.layout.simple_list_item_1, places);
                                 mCurrentPlace.setAdapter(arrayAdapter);
                                 placeLikelihoods.release();
                             }
-
-
                         });
-                    }
+
+
+                    };
+
 
                     @Override
                     public void onConnectionSuspended(int i) {
-                    }
+
+                    };
+
+
+
+
                 },
                 new GoogleApiClient.OnConnectionFailedListener() {
                     @Override
