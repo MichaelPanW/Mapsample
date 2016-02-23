@@ -1,12 +1,14 @@
 package com.example.michael.mapsample;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,37 +33,35 @@ import java.util.ArrayList;
  * Created by alex on 2016/2/19.
  */
 public class PlaceActivity  extends Activity {
-    private static final int REQUEST_PLACE_PICKER = 1;
 
-    TextView mName;
-    TextView mAddress;
+
+    EditText InData;
     ListView mCurrentPlace;
     GoogleApiClient mGoogleApiClient;
+    GoogleApiClient.Builder builder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place);
-
+        EditText InData=(EditText)findViewById(R.id.PlaceDate);
         Button pickPlace = (Button) findViewById(R.id.pickPlace);
-        pickPlace.setOnClickListener(new View.OnClickListener() {
+
+        mCurrentPlace = (ListView) findViewById(R.id.currentPlace);
+
+        pickPlace.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
-                PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
-                Intent intent;
-                try {
-                    intent = intentBuilder.build(PlaceActivity.this);
-                    startActivityForResult(intent, REQUEST_PLACE_PICKER);
-                } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
-                    e.printStackTrace();
-                }
+            public void onClick(View v){
+                apirun();
             }
         });
+        apirun();
+    }
 
-        mName = (TextView) findViewById(R.id.name);
-        mAddress = (TextView) findViewById(R.id.address);
-        mCurrentPlace = (ListView) findViewById(R.id.currentPlace);
-        GoogleApiClient.Builder builder = new GoogleApiClient.Builder(
-                this,
+    public  void apirun(){
+
+        builder= new GoogleApiClient.Builder(
+                PlaceActivity.this,
                 new GoogleApiClient.ConnectionCallbacks() {
                     @Override
                     public void onConnected(Bundle bundle) {
@@ -109,17 +109,6 @@ public class PlaceActivity  extends Activity {
         // ATTENTION: This "addApi(AppIndex.API)"was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         mGoogleApiClient = builder.addApi(AppIndex.API).build();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_PLACE_PICKER){
-            if (resultCode == RESULT_OK){
-                Place place = PlacePicker.getPlace(data, this);
-                mName.setText(place.getName());
-                mAddress.setText(place.getAddress());
-            }
-        }
     }
 
     @Override

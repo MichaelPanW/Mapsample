@@ -21,6 +21,11 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="place"
-        android:id="@+id/button_place" />
+        android:text="place ui"
+        android:id="@+id/button_placeui" />
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="geodata"
+        android:id="@+id/button_geo" />
 </LinearLayout>
