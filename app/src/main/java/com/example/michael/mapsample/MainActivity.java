@@ -80,7 +80,7 @@ public class MainActivity extends Activity {
         if (requestCode == REQUEST_PLACE_PICKER){
             if (resultCode == RESULT_OK){
                 Place place = PlacePicker.getPlace(data, this);
-                b_place.setText(place.getName() +" "+ place.getAddress());
+                b_place.setText(place.getName() +" "+ place.getAddress());//回傳值
             }
         }
     }
