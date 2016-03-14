@@ -28,4 +28,15 @@
         android:layout_height="wrap_content"
         android:text="geodata"
         android:id="@+id/button_geo" />
+    <Button
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:text="place test"
+    android:id="@+id/button_placetest" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="sql link"
+        android:id="@+id/button_sqllink" />
 </LinearLayout>

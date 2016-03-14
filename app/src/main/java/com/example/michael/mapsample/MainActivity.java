@@ -15,7 +15,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
  * Created by Michael on 2015/12/18.
  */
 public class MainActivity extends Activity {
-    Button b_logo, b_goin,b_line,b_place,b_geo;
+    Button b_logo, b_goin,b_line,b_place,b_geo,b_test,b_sqllink;
     private static final int REQUEST_PLACE_PICKER = 1;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,14 +25,18 @@ public class MainActivity extends Activity {
         b_line = (Button) findViewById(R.id.button_line);
         b_place = (Button) findViewById(R.id.button_placeui);
         b_geo = (Button) findViewById(R.id.button_geo);
+        b_test = (Button) findViewById(R.id.button_placetest);
+        b_sqllink = (Button) findViewById(R.id.button_sqllink);
         b_logo.setOnClickListener(buttonListener);
         b_goin.setOnClickListener(buttonListener);
         b_line.setOnClickListener(buttonListener);
         b_place.setOnClickListener(buttonListener);
         b_geo.setOnClickListener(buttonListener);
+        b_test.setOnClickListener(buttonListener);
+        b_sqllink.setOnClickListener(buttonListener);
     }
 
-    private android.view.View.OnClickListener buttonListener = new Button.OnClickListener() {
+    private View.OnClickListener buttonListener = new Button.OnClickListener() {
 
         //(android.view.View.OnClickListener可以置換成Button.OnClickListener)
         @Override
@@ -70,7 +74,16 @@ public class MainActivity extends Activity {
                     intent.setClass(MainActivity.this, PlaceActivity.class);
                     startActivity(intent);
                     break;
+                case R.id.button_placetest:
 
+                    intent.setClass(MainActivity.this, PlaceTestActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.button_sqllink:
+
+                    intent.setClass(MainActivity.this, TestAndroidDBActivity.class);
+                    startActivity(intent);
+                    break;
             }
         }
 
@@ -80,7 +93,7 @@ public class MainActivity extends Activity {
         if (requestCode == REQUEST_PLACE_PICKER){
             if (resultCode == RESULT_OK){
                 Place place = PlacePicker.getPlace(data, this);
-                b_place.setText(place.getName() +" "+ place.getAddress());//回傳值
+                b_place.setText(place.getName() +" "+ place.getAddress());
             }
         }
     }
