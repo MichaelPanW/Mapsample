@@ -4,6 +4,12 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="直接輸入SQL語法"
+        android:id="@+id/textView" />
+
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -22,10 +28,10 @@
         android:layout_gravity="center_horizontal"
         android:text="抓資料囉！" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/output" />
 
-    <TableLayout
-        android:id="@+id/user_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
 </LinearLayout>
